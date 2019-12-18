@@ -5,7 +5,7 @@ import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 const burger = props => {
     // Create an array of the keys of ingredients object ["meat", "cheese", "salad", "bacon"]
     // Loop over names
-    const transformedIngredients = Object.keys(props.ingredients).map(
+    let transformedIngredients = Object.keys(props.ingredients).map(
         ingredientName => {
             // Return an array
             // That array contains an empty "placeholder" equal to the int value we have set on that ingredient
@@ -27,10 +27,13 @@ const burger = props => {
                 }
             );
         }
-    );
-
-    const arr = [...["","",""]].map((_, i) => i);
-    console.log(arr); // true
+    )
+    .reduce((arr, el) => {
+        return arr.concat(el)
+    }, [])
+    if(transformedIngredients.length === 0) {
+        transformedIngredients = <p>Please start adding ingredients!</p>
+    }
 
     return (
         <div className={classes.Burger}>
