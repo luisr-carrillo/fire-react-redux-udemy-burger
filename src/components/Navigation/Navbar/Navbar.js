@@ -4,10 +4,10 @@ import NavbarItem from './NavbarItem/NavbarItem';
 
 const navbar = props => (
     <ul className={classes.Navbar}>
-        <NavbarItem link="/#" active>
+        <NavbarItem link="/" exact>
             Burger Builder
         </NavbarItem>
-        <NavbarItem link="/#">Checkout</NavbarItem>
+        <NavbarItem link="/orders">Orders</NavbarItem>
     </ul>
 );
 
