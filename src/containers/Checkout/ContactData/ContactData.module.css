@@ -11,10 +11,6 @@
     display:flex;
     flex-direction: column;
 }
-.Input {
-    margin:8px 0;
-    padding:8px;
-}
 @media (min-width: 600px) {
     .ContactData {
         width:500px;
