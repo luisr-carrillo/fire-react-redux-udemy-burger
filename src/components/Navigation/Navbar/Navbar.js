@@ -7,7 +7,14 @@ const navbar = props => (
         <NavbarItem link="/" exact>
             Burger Builder
         </NavbarItem>
-        <NavbarItem link="/orders">Orders</NavbarItem>
+
+        {props.isAuth ? <NavbarItem link="/orders">Orders</NavbarItem> : null}
+
+        {!props.isAuth ? (
+            <NavbarItem link="/auth">Authenticate</NavbarItem>
+        ) : (
+            <NavbarItem link="/logout">Logout</NavbarItem>
+        )}
     </ul>
 );
 

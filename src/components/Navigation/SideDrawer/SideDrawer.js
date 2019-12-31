@@ -8,9 +8,8 @@ import Auxiliary from '../../../hoc/Auxiliary/Auxiliary';
 const sideDrawer = props => {
     let attachedClasses = [classes.SideDrawer, classes.Close];
 
-    if(props.open) {
+    if (props.open) {
         attachedClasses = [classes.SideDrawer, classes.Open];
-
     }
 
     return (
@@ -21,7 +20,7 @@ const sideDrawer = props => {
                     <Logo />
                 </div>
                 <nav>
-                    <Navbar />
+                    <Navbar isAuth={props.isAuth} />
                 </nav>
             </div>
         </Auxiliary>
