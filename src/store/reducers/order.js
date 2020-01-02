@@ -36,8 +36,9 @@ const fetchOrdersSuccess = (state, action) => {
         loading: false
     });
 };
-const fetchOrdersFail = (state, action) =>
-    updatedObject(state, { loading: false });
+const fetchOrdersFail = (state, action) => {
+    return updatedObject(state, { loading: false });
+};
 
 export const reducer = (state = initialState, action) => {
     switch (action.type) {

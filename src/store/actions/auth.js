@@ -42,6 +42,7 @@ export const checkAuthTimeout = expirationTime => {
 
 export const auth = (email, password, isSignup) => {
     return dispatch => {
+
         let url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${key}`;
         if (!isSignup) {
             url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${key}`;
