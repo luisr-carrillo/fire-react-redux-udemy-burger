@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as actionTypes from './actionTypes';
-import key from '../../key';
+import { key } from '../../key';
 
 export const authStart = () => {
     return {
@@ -71,7 +71,6 @@ export const auth = (email, password, isSignup) => {
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
             .catch(err => {
-                console.log(err.response.data.error);
                 dispatch(authFail(err.response.data.error));
             });
     };

@@ -7,6 +7,8 @@ import axios from '../../../axios-orders';
 import Input from '../../../components/UI/Input/Input';
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import { updatedObject, checkValidity } from '../../../shared/utility';
+
 class ContactData extends Component {
     state = {
         orderForm: {
@@ -48,7 +50,8 @@ class ContactData extends Component {
                 validation: {
                     required: true,
                     minLength: 5,
-                    maxLength: 5
+                    maxLength: 5,
+                    isNumeric: true
                 },
                 valid: false,
                 touched: false,
@@ -76,7 +79,8 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true
+                    required: true,
+                    isEmail: true
                 },
                 valid: false,
                 touched: false,
@@ -98,25 +102,7 @@ class ContactData extends Component {
         formIsValid: false
     };
 
-    checkValidity(value, rules) {
-        let isValid = true;
 
-        if (!rules) {
-            return true;
-        }
-
-        if (rules.required) {
-            isValid = value.trim() !== '' && isValid;
-        }
-
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid;
-        }
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid;
-        }
-        return isValid;
-    }
 
     orderHandler = e => {
         e.preventDefault();
@@ -136,18 +122,21 @@ class ContactData extends Component {
     };
 
     inputChangedHandler = (e, inputIdentifier) => {
-        const updatedOrderForm = {
-            ...this.state.orderForm
-        };
-        const updatedElement = { ...updatedOrderForm[inputIdentifier] };
-
-        updatedElement.value = e.target.value;
-        updatedElement.valid = this.checkValidity(
-            updatedElement.value,
-            updatedElement.validation
+        const updatedElement = updatedObject(
+            this.state.orderForm[inputIdentifier],
+            {
+                value: e.target.value,
+                valid: checkValidity(
+                    e.target.value,
+                    this.state.orderForm[inputIdentifier].validation
+                ),
+                touched: true
+            }
         );
-        updatedElement.touched = true;
-        updatedOrderForm[inputIdentifier] = updatedElement;
+
+        const updatedOrderForm = updatedObject(this.state.orderForm, {
+            [inputIdentifier]: updatedElement
+        });
 
         let formIsValid = true;
         for (let inputIdentifier in updatedOrderForm) {
